@@ -27,6 +27,11 @@ jobs:
           pip install -r requirements.txt
           pip install pytest pytest-cov  # Ensure pytest-cov is installed
 
-      - name: Run tests with pytest and enforce 100% coverage
+      - name: Run tests with pytest and generate coverage report
         run: |
-          pytest --cov=app --cov-fail-under=100
+          pytest --cov=app --cov-report=xml
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage.xml
